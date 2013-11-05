@@ -17,6 +17,7 @@ CCScene* HelloWorld::scene()
 	//성환메롱
 	//호아
     // return the scene
+	//기석 테스트
     return scene;
 }
 
