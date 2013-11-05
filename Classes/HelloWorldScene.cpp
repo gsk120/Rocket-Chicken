@@ -15,6 +15,7 @@ CCScene* HelloWorld::scene()
 	//±â¼®¸Þ·Õ
 	//ÇüÃ¶¸Þ·Õ
 	//¼ºÈ¯¸Þ·Õ
+	//È£¾Æ
     // return the scene
     return scene;
 }
