@@ -14,6 +14,7 @@ CCScene* HelloWorld::scene()
     scene->addChild(layer);
 	//±â¼®¸Þ·Õ
 	//ÇüÃ¶¸Þ·Õ
+	//¼ºÈ¯¸Þ·Õ
     // return the scene
     return scene;
 }
