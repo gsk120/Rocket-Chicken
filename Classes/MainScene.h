@@ -2,6 +2,10 @@
 #define __MAIN_SCENE_H__
 
 #include "cocos2d.h"
+#include "Classes\MenuName.h"
+#include "NewScene.h"
+
+USING_NS_CC;
 
 class MainScene : public cocos2d::CCLayer
 {
@@ -14,9 +18,12 @@ public:
     
     // a selector callback
     void menuCloseCallback(CCObject* pSender);
-    
+	void menuCallback(CCObject * pSender);
     // implement the "static node()" method manually
     CREATE_FUNC(MainScene);
+
+private:
+	CCMenu* pGameMenu;
 };
 
 #endif // __MAIN_SCENE_H__
