@@ -12,13 +12,13 @@ static NewScene* CreateTestScene(int nIdx)
     switch (nIdx)
 	{
     case MENU_START:
-        //pScene = new ActionsTestScene();
+        pScene = new GameScene();
 		break;
     case MENU_OPTION:
-       // pScene = new TransitionsTestScene();
+        pScene = new OptionScene();
 		break;
 	case MENU_HELP:
-		//pScene = new HelpScene();
+		pScene = new HelpScene();
 		break;
 	default:
         break;

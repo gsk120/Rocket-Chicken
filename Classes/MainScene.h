@@ -5,6 +5,7 @@
 #include "Classes\MenuName.h"
 #include "NewScene.h"
 
+
 USING_NS_CC;
 
 class MainScene : public cocos2d::CCLayer
