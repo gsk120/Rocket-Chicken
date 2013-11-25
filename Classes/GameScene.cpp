@@ -21,7 +21,7 @@ bool GamePlay::init()
                                         "CloseNormal.png",
                                         "CloseSelected.png",
                                         this,
-                                        menu_selector(GamePlay::menuCloseCallback));
+                                        menu_selector(NewScene::ReturnMainMenu));
     
 	pCloseItem->setPosition(ccp(origin.x + visibleSize.width - pCloseItem->getContentSize().width/2 ,
                                 origin.y + pCloseItem->getContentSize().height/2));
@@ -46,25 +46,18 @@ bool GamePlay::init()
     return true;
 }
 
-
-void GamePlay::menuCloseCallback(CCObject* pSender)
+void GamePlay::onEnter()		//Game Start에 레이어생성 : Layer의 온 엔터
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
-	CCMessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
-#else
-    CCDirector::sharedDirector()->end();
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
-#endif
+    CCLayer::onEnter();
+	this->init();
 }
 
-
-void GameScene::runThisTest()
+void GameScene::runThisTest()		//Game Start에 들어왔을때 레이어 생성하여 씬에 추가 및 씬 전환
 {
-    CCLayer* pLayer = new GamePlay();
+	GamePlay* pLayer = new GamePlay();
     addChild(pLayer);
     pLayer->release();
 
-    CCDirector::sharedDirector()->replaceScene(this);
+	CCDirector::sharedDirector()->pushScene(this);
 }
+

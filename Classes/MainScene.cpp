@@ -20,6 +20,8 @@ static NewScene* CreateTestScene(int nIdx)
 	case MENU_HELP:
 		pScene = new HelpScene();
 		break;
+	case MENU_EXIT:
+		exit(0);
 	default:
         break;
     }
@@ -55,25 +57,6 @@ bool MainScene::init()
     
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
-
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
-
-    // add a "close" icon to exit the progress. it's an autorelease object
-    CCMenuItemImage *pCloseItem = CCMenuItemImage::create(
-                                        "CloseNormal.png",
-                                        "CloseSelected.png",
-                                        this,
-                                        menu_selector(MainScene::menuCloseCallback));
-    
-	pCloseItem->setPosition(ccp(origin.x + visibleSize.width - pCloseItem->getContentSize().width/2 ,
-                                origin.y + pCloseItem->getContentSize().height/2));
-
-    // create menu, it's an autorelease object
-    CCMenu* pMenu = CCMenu::create(pCloseItem, NULL);
-    pMenu->setPosition(CCPointZero);
-    this->addChild(pMenu, 1);
 
     /////////////////////////////
     // 3. add your codes below...

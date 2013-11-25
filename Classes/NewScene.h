@@ -16,6 +16,7 @@ public:
 
     // The CallBack for back to the main menu scene
     virtual void MainMenuCallback(CCObject* pSender);
+	void ReturnMainMenu(CCObject* pSender);
 };
 
 #endif

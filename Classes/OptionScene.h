@@ -9,8 +9,7 @@ class OptionSetting : public cocos2d::CCLayer
 public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
-	void menuCloseCallback(CCObject* pSender);
-
+	virtual void onEnter();
 };
 
 class OptionScene : public NewScene {
