@@ -2,7 +2,7 @@
 #define __OPTION_SCENE_H__
 
 #include "NewScene.h"
-#include "Player.h"
+#include "PlayerLayer.h"
 USING_NS_CC;
 
 class OptionSetting : public cocos2d::CCLayer

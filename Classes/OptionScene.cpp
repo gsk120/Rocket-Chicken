@@ -49,7 +49,7 @@ void OptionSetting::onEnter() {
 void OptionScene::runThisTest()
 {
     CCLayer* pLayer = new OptionSetting();
-	CCLayer* pPlayerLayer = new Player();
+	CCLayer* pPlayerLayer = new PlayerLayer();
     addChild(pLayer);
 	addChild(pPlayerLayer);
     pLayer->release();

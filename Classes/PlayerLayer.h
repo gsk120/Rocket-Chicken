@@ -1,9 +1,9 @@
-#ifndef __Player_H__
-#define __Player_H__
+#ifndef __PLAYER_LAYER_H__
+#define __PLAYER_LAYER_H__
 #include "cocos2d.h"
 USING_NS_CC;
 
-class Player : public cocos2d::CCLayer {
+class PlayerLayer : public cocos2d::CCLayer {
 public:
 	virtual bool init();
 	virtual void onEnter();
