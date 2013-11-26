@@ -31,6 +31,9 @@ bool GamePlay::init()
     pMenu->setPosition(CCPointZero);
     this->addChild(pMenu, 1);
 
+    /////////////////////////////
+    // 3. add your codes below...
+
 	CCLabelTTF* pLabel = CCLabelTTF::create("Game Scene", "Arial", 24);
     
     // position the label on the center of the screen
@@ -39,16 +42,31 @@ bool GamePlay::init()
 
     // add the label as a child to this layer
     this->addChild(pLabel, 1);
-
-    /////////////////////////////
-    // 3. add your codes below...
     
     return true;
+}
+
+bool GamePlay::background()
+{
+	m_pBackground1 = CCSprite::create("Background.png");
+	m_pBackground1->setPosition(CCPointZero);
+	m_pBackground1->setAnchorPoint(ccp(0.0f, 0.0f));
+	addChild(m_pBackground1, 0);
+
+	m_pBackground2 = CCSprite::create("Background.png");
+	m_pBackground2->setPosition(ccp(0.0f, 800.0f));
+	m_pBackground2->setAnchorPoint(ccp(0.0f, 0.0f));
+	addChild(m_pBackground2, 0);
+
+	scheduleUpdate();
+
+	return true;
 }
 
 void GamePlay::onEnter()		//Game Start에 레이어생성 : Layer의 온 엔터
 {
     CCLayer::onEnter();
+	this->background();
 	this->init();
 }
 
@@ -56,8 +74,40 @@ void GameScene::runThisTest()		//Game Start에 들어왔을때 레이어 생성하여 씬에 추
 {
 	GamePlay* pLayer = new GamePlay();
     addChild(pLayer);
+	PlayerLayer* pPlayer = new PlayerLayer();
+	addChild(pPlayer);
     pLayer->release();
+	pPlayer->release();
 
 	CCDirector::sharedDirector()->pushScene(this);
 }
 
+void GamePlay::update(float dt)
+{
+	MoveBackground(dt);
+}
+
+void GamePlay::MoveBackground(float dt)
+{
+	float deltaY = 200.f * dt;
+	CCPoint moveStep = ccp(0.0f, -deltaY);
+
+	m_pBackground1->setPosition(ccpAdd(m_pBackground1->getPosition(), moveStep));
+	m_pBackground2->setPosition(ccpAdd(m_pBackground2->getPosition(), moveStep));
+
+	float contentHeight = m_pBackground1->getContentSize().height;
+
+	if(m_pBackground1->getPosition().y <= -contentHeight)
+	{
+		CCPoint newPos = m_pBackground1->getPosition();
+		newPos.y = m_pBackground2->getPosition().y + contentHeight;
+		m_pBackground1->setPosition(newPos);
+	}
+
+	else if(m_pBackground2->getPosition().y <= -contentHeight)
+	{
+		CCPoint newPos = m_pBackground2->getPosition();
+		newPos.y = m_pBackground1->getPosition().y + contentHeight;
+		m_pBackground2->setPosition(newPos);
+	}
+}
