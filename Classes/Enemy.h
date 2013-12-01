@@ -13,7 +13,6 @@ public:
 
 	static Enemy* create(const char* enemyName, const CCRect& rect);
 
-
 };
 
 #endif

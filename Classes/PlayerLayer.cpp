@@ -14,10 +14,10 @@ bool PlayerLayer::init()
 
 	this->setTouchEnabled(true);		//터치 인식 설정
    
-	this->setPlayerSprite("chicken.png");		//플레이어 캐릭터 생성
-	this->playerSprite->setPosition(ccp(visibleSize.width/2, origin.y + this->playerSprite->getContentSize().height));
+	this->setPlayerSprite("rocket1.png");		//플레이어 캐릭터 생성
+	this->playerSprite->setPosition(ccp(visibleSize.width/2, origin.y + (this->playerSprite->boundingBox().size.height*2)/3));
 	this->addChild(this->playerSprite, 1);
-   
+	this->AnimationStart();
     return true;
 }
 
@@ -70,14 +70,25 @@ void PlayerLayer::StartMoving(float f) {
 	CCPoint NewPoint;
 	CCPoint moveStep = ccp(5,0);
 
-	if(this->isRightPressed == true && chickenPoint.x <= visibleSize.width - this->playerSprite->getContentSize().width/2) {
+	if(this->isRightPressed == true && chickenPoint.x <= visibleSize.width - this->playerSprite->boundingBox().size.width/2) {
 		NewPoint = ccp(chickenPoint.x + moveStep.x , chickenPoint.y);
 		this->playerSprite->setPosition(NewPoint);
 	}
-	else if(this->isLeftPressed == true && chickenPoint.x >= origin.x + this->playerSprite->getContentSize().width/2) {
+	else if(this->isLeftPressed == true && chickenPoint.x >= origin.x + this->playerSprite->boundingBox().size.width/2) {
 		NewPoint = ccp(chickenPoint.x - moveStep.x , chickenPoint.y);
 		this->playerSprite->setPosition(NewPoint);
 	}
+}
+
+void PlayerLayer::AnimationStart() {
+	CCAnimation* pAnimation = CCAnimation::create();
+	pAnimation->setDelayPerUnit(0.1);
+	pAnimation->addSpriteFrameWithFileName("rocket2.png");
+	pAnimation->addSpriteFrameWithFileName("rocket3.png");
+	pAnimation->addSpriteFrameWithFileName("rocket4.png");
+	CCAnimate* pAnimate = CCAnimate::create(pAnimation);
+	CCAction* pAction = CCRepeatForever::create(pAnimate);
+	this->playerSprite->runAction(pAction);
 }
 
 void PlayerLayer::onEnter() {
