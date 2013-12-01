@@ -3,6 +3,8 @@
 
 #include "NewScene.h"
 #include "PlayerLayer.h"
+#include "Enemy.h"
+#include <stdlib.h>
 
 USING_NS_CC;
 
@@ -12,10 +14,12 @@ public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
 	virtual bool background();
+	virtual void SpawnEnemy(float dt);
 	virtual void onEnter();
 
 	void update(float dt);
 	void MoveBackground(float dt);
+	void Done(CCNode* sender);
 
 private:
 	CCSprite* m_pBackground1;

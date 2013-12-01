@@ -40,6 +40,8 @@ bool GamePlay::init()
     pLabel->setPosition(ccp(origin.x + visibleSize.width/2,
                             origin.y + visibleSize.height - pLabel->getContentSize().height));
 
+	
+
     // add the label as a child to this layer
     this->addChild(pLabel, 1);
     
@@ -63,11 +65,63 @@ bool GamePlay::background()
 	return true;
 }
 
+void GamePlay::SpawnEnemy(float dt)
+{
+	int location, seed;
+
+	srand(GetTickCount());
+
+	CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
+    CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+
+	Enemy* pEnemy;
+	CCMoveTo *pAction;
+	CCFiniteTimeAction* actionDone = CCCallFuncN::create(this, callfuncN_selector(GamePlay::Done));
+
+	seed = rand() % 2;
+
+	switch(seed){
+	
+	case 0:
+		pEnemy = Enemy::create("Airplain.png", CCRectMake(0.0f, 0.0f, 70, 38));
+		location = (rand() % 6) + 4;
+		pEnemy->setPosition(ccp(visibleSize.width, (visibleSize.height) * location / 9));
+		location = (rand() % 2);
+		pAction = CCMoveTo::create(5.0, ccp(0, (visibleSize.height) * location / 9));
+		pEnemy->runAction( CCSequence::create(pAction, actionDone, nullptr));
+		this->addChild(pEnemy);
+
+		break;
+	
+	case 1:
+		pEnemy = Enemy::create("Airplain.png", CCRectMake(0.0f, 0.0f, 70, 38));
+		pEnemy->setFlipX(true);
+		location = (rand() % 6) + 4;
+		pEnemy->setPosition(ccp(0, (visibleSize.height) * location / 9));
+		location = (rand() % 2);
+		pAction = CCMoveTo::create(5.0, ccp(visibleSize.width, (visibleSize.height) * location / 9));
+		pEnemy->runAction( CCSequence::create(pAction, actionDone, nullptr));
+		this->addChild(pEnemy);
+		break;
+	}
+
+
+
+}
+
+void GamePlay::Done(CCNode* sender)
+{
+	CCSprite *sprite = (CCSprite *) sender;
+	this->removeChild(sprite, true);
+}
+
+
 void GamePlay::onEnter()		//Game Start에 레이어생성 : Layer의 온 엔터
 {
     CCLayer::onEnter();
 	this->background();
 	this->init();
+	this->schedule(schedule_selector(GamePlay::SpawnEnemy), 3);
 }
 
 void GameScene::runThisTest()		//Game Start에 들어왔을때 레이어 생성하여 씬에 추가 및 씬 전환
@@ -111,3 +165,4 @@ void GamePlay::MoveBackground(float dt)
 		m_pBackground2->setPosition(newPos);
 	}
 }
+
